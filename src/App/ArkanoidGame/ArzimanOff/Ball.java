@@ -107,10 +107,10 @@ class Ball {
 
 
     public List<String> ballColorsList = Arrays.asList(
-            "0x56CCF2",   // 1
+            "0xEB5757",   // 1
             "0xBB6BD9",   // 2
-            "0x6FCF97",   // 3
-            "0x1F1F1F"    // 4
+            "0xF2C94C",   // 3
+            "0x6FCF97"    // 4
     );
 
     public void updateColor(){

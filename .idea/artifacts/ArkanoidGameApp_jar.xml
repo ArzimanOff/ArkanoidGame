@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ArkanoidGameApp:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ArkanoidGameApp_jar</output-path>
+    <root id="archive" name="ArkanoidGameApp.jar">
+      <element id="module-output" name="ArkanoidGameApp" />
+    </root>
+  </artifact>
+</component>
