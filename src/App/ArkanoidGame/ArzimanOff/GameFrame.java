@@ -5,7 +5,7 @@ import javax.swing.*;
 class GameFrame extends JFrame {
     public GameFrame() {
         setTitle("Arkanoid Game");
-        setSize(413, 600);
+        setSize(412, 600);
         setResizable(false);
         setLocationRelativeTo(null);
 

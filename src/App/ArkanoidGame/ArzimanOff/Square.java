@@ -18,7 +18,7 @@ class Square {
         setColor();
     }
 
-    public List<String> colorList = Arrays.asList(
+    public List<String> squareColorsList = Arrays.asList(
             // Список HEX - кодов цветов соответственно оставшемуся весу коробки
             "0x05CD49",   // 1
             "0x7BDB00",   // 2
@@ -32,7 +32,7 @@ class Square {
     );
 
     public void setColor(){
-        this.color = Color.decode(colorList.get(this.hitCount - 1));
+        this.color = Color.decode(squareColorsList.get(this.hitCount - 1));
     }
 
     public void draw(Graphics2D g) {

@@ -6,7 +6,6 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 class GamePanel extends JPanel implements ActionListener, KeyListener {
-    private boolean gameStarted = false;
     static int score = 0;
     private final int BALL_RADIUS = 10;
     private final int PLATFORM_WIDTH = 80;
@@ -23,7 +22,6 @@ class GamePanel extends JPanel implements ActionListener, KeyListener {
         addKeyListener(this);
         initGameObjects();
 
-        // todo добавить в это место метод начала игры, то есть "превью"
         timer = new Timer(10, this);
         timer.start();
     }

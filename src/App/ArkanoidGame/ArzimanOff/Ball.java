@@ -2,16 +2,18 @@ package App.ArkanoidGame.ArzimanOff;
 
 import java.awt.*;
 import java.util.Arrays;
+import java.util.List;
 
 class Ball {
+    private boolean isIntersect = false;
     private int x, y;
     private int dx, dy;
-    private int radius;
+    private final int radius;
     private Color color;
 
     public Ball(int radius, Color color) {
-        this.x = getRandomBallValue(41, 341);
-        this.y = getRandomBallValue(321, 461);
+        this.x = getRandomValue(41, 341);
+        this.y = getRandomValue(321, 461);
         this.dx = getRandomSpeedVX();
         this.dy = getRandomSpeedVY();
         this.radius = radius;
@@ -31,20 +33,23 @@ class Ball {
     public void checkCollisionWithWalls(int width, int height) {
         if (x - radius < 0 || x + radius > width) {
             dx = -dx;
+            this.updateColor();
         }
         if (y - radius < 0) {
             dy = -dy;
+            this.updateColor();
         }
     }
 
     public void checkCollisionWithPlatform(Platform platform) {
         if (getBounds().intersects(platform.getBounds())) {
             dy = -dy;
+            this.updateColor();
         }
     }
 
     public boolean checkCollisionWithSquare(Square square) {
-        if (getBounds().intersects(square.getBounds())) {
+        if (getBounds().intersects(square.getBounds()) && !isIntersect) {
             Rectangle intersection = getBounds().intersection(square.getBounds());
 
             if (intersection.width > intersection.height) {
@@ -52,9 +57,13 @@ class Ball {
             } else {
                 dx = -dx;
             }
+            this.updateColor();
             GamePanel.score++;
             square.hitCountDecrease();
+            this.isIntersect = true;
             return true;
+        }else{
+            this.isIntersect = false;
         }
         return false;
     }
@@ -92,8 +101,23 @@ class Ball {
         return random;
     }
 
-    public int getRandomBallValue(int max, int min){
+    public int getRandomValue(int max, int min){
         return (int) (Math.random() * ((max - min) + 1)) + min;
+    }
+
+
+    public List<String> ballColorsList = Arrays.asList(
+            "0x56CCF2",   // 1
+            "0xBB6BD9",   // 2
+            "0x6FCF97",   // 3
+            "0x1F1F1F"    // 4
+    );
+
+    public void updateColor(){
+        if (getRandomValue(4, 0) == 1){
+            int randomColorIndex = getRandomValue(4, 1) - 1;
+            this.color = Color.decode(ballColorsList.get(randomColorIndex));
+        }
     }
 
 }
