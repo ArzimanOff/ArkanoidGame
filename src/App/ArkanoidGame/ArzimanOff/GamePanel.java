@@ -4,19 +4,26 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 class GamePanel extends JPanel implements ActionListener, KeyListener {
+    private int width;
+    private int height;
     static int score = 0;
     private final int BALL_RADIUS = 10;
     private final int PLATFORM_WIDTH = 80;
     private final int PLATFORM_HEIGHT = 5;
     private final int SQUARE_SIZE = 40;
+    private String gameResult;
     private Timer timer;
     private Ball ball;
     private Platform platform;
     private ArrayList<Square> squares;
 
-    public GamePanel() {
+    public GamePanel(int width, int height) {
+        this.width = width;
+        this.height = height;
+
         setBackground(Color.decode("0x1D1D1D"));
         setFocusable(true);
         addKeyListener(this);
@@ -30,7 +37,7 @@ class GamePanel extends JPanel implements ActionListener, KeyListener {
 
         ball = new Ball(BALL_RADIUS, Color.decode("0xEB5757"));
 
-        platform = new Platform(160, 550,
+        platform = new Platform(160, 530,
                 PLATFORM_WIDTH,
                 PLATFORM_HEIGHT,
                 Color.decode("0x2F80ED"));
@@ -57,6 +64,9 @@ class GamePanel extends JPanel implements ActionListener, KeyListener {
             square.setColor();
             square.draw((Graphics2D) g);
         }
+        if (gameResult != null){
+            gameOver((Graphics2D) g, gameResult);
+        }
     }
 
     private void update() {
@@ -67,11 +77,9 @@ class GamePanel extends JPanel implements ActionListener, KeyListener {
         squares.removeIf(square -> ball.checkCollisionWithSquare(square) && square.getHitCount() == 0);
         //squares.removeIf(square -> square.getHitCount() == 0);
         if (ball.getY() > platform.getY() + 5) {
-            timer.stop();
-            JOptionPane.showMessageDialog(this, "Поражение! Набрано баллов:" + score, "Игра окончена!", JOptionPane.INFORMATION_MESSAGE);
+            gameResult = "Поражение";
         } else if (squares.isEmpty()) {
-            timer.stop();
-            JOptionPane.showMessageDialog(this, "Победа! Набрано баллов:" + score, "Поздравляем!", JOptionPane.INFORMATION_MESSAGE);
+            gameResult = "Победа!";
         }
     }
 
@@ -94,9 +102,44 @@ class GamePanel extends JPanel implements ActionListener, KeyListener {
         }
     }
 
-
-
     @Override
     public void keyReleased(KeyEvent e) {
     }
+
+    public void gameOver(Graphics2D g, String gameResult){
+        int hitTextX;
+        int hitTextY;
+
+
+        if (Objects.equals(gameResult, "Поражение")){
+            g.setColor(Color.RED);
+        }else{
+            g.setColor(Color.GREEN);
+        }
+
+        g.setFont(new Font("Arial", Font.BOLD, 24));
+        FontMetrics metrics = g.getFontMetrics();
+        String text = gameResult;
+        hitTextX = (this.width - metrics.stringWidth(text)) / 2;
+        hitTextY = 270 - (metrics.getHeight() / 2) + metrics.getAscent();
+        g.drawString(text, hitTextX, hitTextY);
+
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial", Font.PLAIN, 18));
+        text = "Набранное количество баллов:";
+        metrics = g.getFontMetrics();
+        hitTextX = (this.width - metrics.stringWidth(text)) / 2;
+        hitTextY = 300 - (metrics.getHeight() / 2) + metrics.getAscent();
+        g.drawString(text, hitTextX, hitTextY);
+
+        g.setFont(new Font("Arial", Font.BOLD, 80));
+        text = Integer.toString(score);
+        metrics = g.getFontMetrics();
+        hitTextX = (this.width - metrics.stringWidth(text)) / 2;
+        hitTextY = 370 - (metrics.getHeight() / 2) + metrics.getAscent();
+        g.drawString(text, hitTextX, hitTextY);
+
+        timer.stop();
+    }
+
 }

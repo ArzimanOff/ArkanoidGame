@@ -20,14 +20,14 @@ class Platform {
     }
 
     public void moveLeft() {
-        x -= 40;
+        x -= 30;
         if (x < 0) {
             x = 0;
         }
     }
 
     public void moveRight() {
-        x += 40;
+        x += 30;
         if (x + width > 400) {
             x = 400 - width;
         }
