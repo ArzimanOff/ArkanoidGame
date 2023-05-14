@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 
 class GameFrame extends JFrame {
-    private JButton restartButton;
     private final int frameWidth = 412;
     private final int frameHeight = 600;
     private GamePanel gamePanel;
@@ -32,7 +31,9 @@ class GameFrame extends JFrame {
     }
 
     private void addRestartButton(){
-        restartButton = new JButton("Начать заново");
+        JButton restartButton = new JButton("Начать заново");
+        restartButton.setBackground(Color.decode("0x1D1D1D"));
+        restartButton.setBorderPainted(false);
         restartButton.addActionListener(e -> restartGame());
         add(restartButton, BorderLayout.SOUTH);
     }
