@@ -1,11 +1,22 @@
 package App.ArkanoidGame.ArzimanOff;
+
+// Перечень импортированных библиотек
 import java.awt.*;
 
-class Platform {
-    private int x, y;
-    private int width, height;
-    private Color color;
 
+/**
+ * Класс нижней платформы для игры Арканоид
+ * @autor Гюльахмед Арзиманов (ArzimanOff)
+ */
+class Platform {
+    private int x, y;           // Координаты верхнего-левого угла платформы
+    private int width, height;  // Размеры платформы
+    private Color color;        // Цвет шара
+
+
+    /**
+     * Конструктор класса
+     */
     public Platform(int x, int y, int width, int height, Color color) {
         this.x = x;
         this.y = y;
@@ -14,66 +25,82 @@ class Platform {
         this.color = color;
     }
 
+
+    /**
+     * Метод запроса для отрисовки нижней платформы
+     */
     public void draw(Graphics g) {
-        g.setColor(color);
-        g.fillRoundRect(x, y, width, height, 5, 5);
+        g.setColor(color);      // присвоение цвета платформы для кисти
+        g.fillRoundRect(x, y, width, height, 5, 5); // заливка области платформы
     }
 
+
+    /**
+     * Метод для передвижения платформы ВЛЕВО
+     */
     public void moveLeft() {
-        x -= 30;
-        if (x < 0) {
+        x -= 30;    // изменение координаты X на -30
+        if (x < 0) { // проверка условия того, что платформа может выйти за границы экрана СЛЕВА
             x = 0;
         }
     }
 
+
+    /**
+     * Метод для передвижения платформы ВПРАВО
+     */
     public void moveRight() {
-        x += 30;
-        if (x + width > 400) {
+        x += 30;    // изменение координаты X на +30
+        if (x + width > 400) {  // проверка условия того, что платформа может выйти за границы экрана СПРАВА
             x = 400 - width;
         }
     }
 
+
+    /**
+     * Метод возвращающий условный коллайдер для платформы
+     */
     public Rectangle getBounds() {
         return new Rectangle(x, y, width, height);
     }
 
     public int getX(int x) {
-        return this.x;
+        return this.x;  // метод возвращающий координату X текущего экземпляра класса
     }
 
     public void setX(int x) {
-        this.x = x;
+        this.x = x;     // метод переопределяющий координату X
     }
 
     public int getY() {
-        return y;
+        return y;       // метод возвращающий координату Y текущего экземпляра класса
     }
 
     public void setY(int y) {
-        this.y = y;
+        this.y = y;     // метод переопределяющий координату Y
     }
 
     public int getWidth() {
-        return width;
+        return width;   // метод возвращающий ширину платформы
     }
 
     public void setWidth(int width) {
-        this.width = width;
+        this.width = width;     // метод переопределяющий ширину платформы
     }
 
     public int getHeight() {
-        return height;
+        return height;  // метод возвращающий высоту платформы
     }
 
     public void setHeight(int height) {
-        this.height = height;
+        this.height = height;   // метод переопределяющий высоту платформы
     }
 
     public Color getColor() {
-        return color;
+        return color;   // метод возвращающий цвет платформы
     }
 
     public void setColor(Color color) {
-        this.color = color;
+        this.color = color;  // метод переопределяющий цвет платформы
     }
 }
