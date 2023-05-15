@@ -31,6 +31,7 @@ class GamePanel extends JPanel implements ActionListener, KeyListener {
      * Конструктор класса игровой зоны
      */
     public GamePanel(int width, int height) {
+        score = 0;                                   // Обнуление счётчика очков
         this.width = width;
         this.height = height;
 
@@ -193,5 +194,4 @@ class GamePanel extends JPanel implements ActionListener, KeyListener {
 
         timer.stop(); // Остановка времени (остановка игры)
     }
-
 }
