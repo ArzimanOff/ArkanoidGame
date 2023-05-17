@@ -10,8 +10,8 @@ import java.awt.*;
  * @autor Гюльахмед Арзиманов (ArzimanOff)
  */
 class GameFrame extends JFrame {
-    private final int frameWidth = 412;     // Ширина игрового окна
-    private final int frameHeight = 600;    // Высота игрового окна
+    private final int FRAME_WIDTH  = 412;     // Ширина игрового окна
+    private final int FRAME_HEIGHT  = 600;    // Высота игрового окна
     private GamePanel gamePanel;            // Создание экземпляра класса Игровой зоны
 
 
@@ -20,11 +20,11 @@ class GameFrame extends JFrame {
      */
     public GameFrame() {
         setTitle("Arkanoid Game");          // Некий заголовок (title) игрового окна
-        setSize(frameWidth, frameHeight);   // Присвоение размеров игрового окна
+        setSize(FRAME_WIDTH , FRAME_HEIGHT);   // Присвоение размеров игрового окна
         setResizable(false);                // Запрет на изменение размеров вручную
         setLocationRelativeTo(null);        // Центрирование изначального положения окна на экране пользователя
 
-        gamePanel = new GamePanel(frameWidth, frameHeight); // Создание экземпляра игровой ЗОНЫ внутри игрового ОКНА
+        gamePanel = new GamePanel(FRAME_WIDTH , FRAME_HEIGHT); // Создание экземпляра игровой ЗОНЫ внутри игрового ОКНА
         add(gamePanel);                     // Добавление игровой зоны в игровое окно
         addRestartButton();                 // Метод добавляющий кнопку для перезапуска игры
     }
@@ -47,7 +47,7 @@ class GameFrame extends JFrame {
      */
     private void restartGame() {
         remove(gamePanel);                                    // Удаление текущей игровой зоны
-        gamePanel = new GamePanel(frameWidth, frameHeight);   // Создание новой игровой зоны
+        gamePanel = new GamePanel(FRAME_WIDTH, FRAME_HEIGHT); // Создание новой игровой зоны
 
         add(gamePanel, BorderLayout.CENTER);                  // Добавление игровой зоны по центру в текущее окно
         gamePanel.requestFocusInWindow();                     // Изменение фокусировки на текущую игровую зону
