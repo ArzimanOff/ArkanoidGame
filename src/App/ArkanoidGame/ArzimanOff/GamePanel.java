@@ -93,6 +93,10 @@ class GamePanel extends JPanel implements ActionListener, KeyListener {
         }
     }
 
+
+    /**
+     * Метод для изменения параметров объектов в игровой области
+     */
     private void update() {
         ball.move();    // Запрос не передвижение шара
         ball.checkCollisionWithWalls(getWidth(), getHeight());  // Запрос на проверку и обработку столкновения мяча со стенами
@@ -136,9 +140,9 @@ class GamePanel extends JPanel implements ActionListener, KeyListener {
      */
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+        if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
             platform.moveLeft();
-        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
             platform.moveRight();
         }
     }

@@ -12,21 +12,21 @@ import java.awt.*;
 class GameFrame extends JFrame {
     private final int FRAME_WIDTH  = 412;     // Ширина игрового окна
     private final int FRAME_HEIGHT  = 600;    // Высота игрового окна
-    private GamePanel gamePanel;            // Создание экземпляра класса Игровой зоны
+    private GamePanel gamePanel;              // Создание экземпляра класса Игровой зоны
 
 
     /**
      * Конструктор класса игрового окна
      */
     public GameFrame() {
-        setTitle("Arkanoid Game");          // Некий заголовок (title) игрового окна
+        setTitle("Arkanoid Game");             // Некий заголовок (title) игрового окна
         setSize(FRAME_WIDTH , FRAME_HEIGHT);   // Присвоение размеров игрового окна
-        setResizable(false);                // Запрет на изменение размеров вручную
-        setLocationRelativeTo(null);        // Центрирование изначального положения окна на экране пользователя
+        setResizable(false);                   // Запрет на изменение размеров вручную
+        setLocationRelativeTo(null);           // Центрирование изначального положения окна на экране пользователя
 
         gamePanel = new GamePanel(FRAME_WIDTH , FRAME_HEIGHT); // Создание экземпляра игровой ЗОНЫ внутри игрового ОКНА
-        add(gamePanel);                     // Добавление игровой зоны в игровое окно
-        addRestartButton();                 // Метод добавляющий кнопку для перезапуска игры
+        add(gamePanel);                        // Добавление игровой зоны в игровое окно
+        addRestartButton();                    // Метод добавляющий кнопку для перезапуска игры
     }
 
 
