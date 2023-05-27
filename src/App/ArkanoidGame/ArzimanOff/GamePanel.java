@@ -25,7 +25,9 @@ class GamePanel extends JPanel implements ActionListener, KeyListener {
     private Ball ball;                              // Создание экземпляра шара
     private Platform platform;                      // Создание экземпляра нижней платформы
     private ArrayList<Square> squares;              // Создание списка хранящий экземпляры коробок из игрового поля
-    private Image image;
+
+    // хранит случайный индекс изображение отображающегося в конце игры
+    String imgIndex = String.valueOf((int) (Math.random() * ((8 - 1) + 1)) + 1);
 
     /**
      * Конструктор класса игровой зоны
@@ -160,19 +162,19 @@ class GamePanel extends JPanel implements ActionListener, KeyListener {
      * Метод обрабатывающий завершение игры
      */
     public void gameOver(Graphics2D g, String gameResult){
-        int textX, textY; // Координаты начала написания текста в уведомлении об окончании игры
 
-        ImageIcon imageIcon;
+        int textX, textY; // Координаты начала написания текста в уведомлении об окончании игры
+        ImageIcon imageIcon; // Переменная хранящая ссылку на гиф-изображение
         // Цвет текста в уведомлении о конце игры выбирается в зависимости от исхода игры
         if (Objects.equals(gameResult, "Поражение")) {
             g.setColor(Color.RED); // Поражение - красный
-            imageIcon = new ImageIcon("src/GifList/loose_sad-cat.gif");
+            imageIcon = new ImageIcon("src/GifList/loose/cat_" + imgIndex + ".gif");
         } else {
             g.setColor(Color.GREEN); // Победа - зелёный
-            imageIcon = new ImageIcon("src/GifList/win_dancing-cat.gif");
+            imageIcon = new ImageIcon("src/GifList/win/cat_" + imgIndex + ".gif");
         }
 
-        Image image = imageIcon.getImage();
+        Image image = imageIcon.getImage(); // получение изображения обратившись по ссылке
 
         // Настройки параметров шрифта для текста результата
         g.setFont(new Font("Arial", Font.BOLD, 24));
