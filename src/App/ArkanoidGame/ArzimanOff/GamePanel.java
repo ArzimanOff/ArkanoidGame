@@ -6,7 +6,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Objects;
-
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 /**
  * Класс игровой ЗОНЫ, наследующийся от JPanel,
@@ -25,7 +26,7 @@ class GamePanel extends JPanel implements ActionListener, KeyListener {
     private Ball ball;                              // Создание экземпляра шара
     private Platform platform;                      // Создание экземпляра нижней платформы
     private ArrayList<Square> squares;              // Создание списка хранящий экземпляры коробок из игрового поля
-
+    private Image image;
 
     /**
      * Конструктор класса игровой зоны
@@ -44,7 +45,6 @@ class GamePanel extends JPanel implements ActionListener, KeyListener {
         timer.start();                               // Начало отсчёта времени
     }
 
-
     /**
      * Метод для инициализации всех игровых объектов
      */
@@ -62,16 +62,16 @@ class GamePanel extends JPanel implements ActionListener, KeyListener {
         // Генерация условного поля коробок
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 5; j++) {
-                // проходясь по двумерному массиву, размера 10 x 5 для каждой ячейки генерируется число (1 либо 0)
-                int random = (int) ((Math.random() * (1 + 1)) + 0);
+                // проходясь по двумерному массиву, размера 10 x 5 для каждой ячейки генерируется число (2, 1 либо 0)
+                int random = (int) ((Math.random() * (2 + 1)) + 0);
                 if (random == 1){
                     // если сгенерированное число = 1, в ячейку и в список добавляется коробка
                     squares.add(new Square(i * (SQUARE_SIZE), j * (SQUARE_SIZE), SQUARE_SIZE));
                 }
             }
         }
-    }
 
+    }
 
     /**
      * Переопределение метода для отрисовки всех компонентов игры
@@ -157,27 +157,34 @@ class GamePanel extends JPanel implements ActionListener, KeyListener {
         // не используется, но необходим для работы
     }
 
-
     /**
      * Метод обрабатывающий завершение игры
      */
     public void gameOver(Graphics2D g, String gameResult){
         int textX, textY; // Координаты начала написания текста в уведомлении об окончании игры
 
-        // Условие выбора цвета для текста, в зависимости от исхода игры
-        if (Objects.equals(gameResult, "Поражение")){
-            g.setColor(Color.RED);    // Поражение - красный
-        }else{
-            g.setColor(Color.GREEN);  // Победа - зелёный
+        ImageIcon imageIcon;
+        // Цвет текста в уведомлении о конце игры выбирается в зависимости от исхода игры
+        if (Objects.equals(gameResult, "Поражение")) {
+            g.setColor(Color.RED); // Поражение - красный
+            imageIcon = new ImageIcon("src/GifList/loose_sad-cat.gif");
+        } else {
+            g.setColor(Color.GREEN); // Победа - зелёный
+            imageIcon = new ImageIcon("src/GifList/win_dancing-cat.gif");
         }
+
+        Image image = imageIcon.getImage();
 
         // Настройки параметров шрифта для текста результата
         g.setFont(new Font("Arial", Font.BOLD, 24));
         FontMetrics metrics = g.getFontMetrics();
         String text = gameResult;
         textX = (this.width - metrics.stringWidth(text)) / 2;
-        textY = 270 - (metrics.getHeight() / 2) + metrics.getAscent();
+        textY = 240 - (metrics.getHeight() / 2) + metrics.getAscent();
         g.drawString(text, textX, textY);
+
+        // отрисовка нужного гиф-изображения
+        g.drawImage(image, ((this.width - 100) / 2), 265, 100, 100, this);
 
         // Настройки параметров шрифта для текста объявления кол-ва баллов
         g.setColor(Color.WHITE);
@@ -185,7 +192,7 @@ class GamePanel extends JPanel implements ActionListener, KeyListener {
         text = "Набранное количество баллов:";
         metrics = g.getFontMetrics();
         textX = (this.width - metrics.stringWidth(text)) / 2;
-        textY = 300 - (metrics.getHeight() / 2) + metrics.getAscent();
+        textY = 390 - (metrics.getHeight() / 2) + metrics.getAscent();
         g.drawString(text, textX, textY);
 
         // Настройки параметров шрифта кол-ва баллов
@@ -193,9 +200,62 @@ class GamePanel extends JPanel implements ActionListener, KeyListener {
         text = Integer.toString(score);
         metrics = g.getFontMetrics();
         textX = (this.width - metrics.stringWidth(text)) / 2;
-        textY = 370 - (metrics.getHeight() / 2) + metrics.getAscent();
+        textY = 440 - (metrics.getHeight() / 2) + metrics.getAscent();
         g.drawString(text, textX, textY);
 
+
+
         timer.stop(); // Остановка времени (остановка игры)
+    }
+
+//    public void gameOver(Graphics2D g, String gameResult) {
+//        int textX, textY; // Coordinates of the beginning of writing text in the notification of the end of the game
+//
+//        ImageIcon imageIcon;
+//        // Color selection condition for the text, depending on the outcome of the game
+//        if (Objects.equals(gameResult, "Поражение")) {
+//            g.setColor(Color.RED); // Defeat - red
+//            imageIcon = new ImageIcon("src/GifList/loose_sad-cat.gif");
+//        } else {
+//            g.setColor(Color.GREEN); // Victory - green
+//            imageIcon = new ImageIcon("src/GifList/win_dancing-cat.gif");
+//        }
+//
+//        Image image = imageIcon.getImage();
+//
+//        // Font settings for the result text
+//        g.setFont(new Font("Arial", Font.BOLD, 24));
+//        FontMetrics metrics = g.getFontMetrics();
+//        String text = gameResult;
+//        textX = (this.width - metrics.stringWidth(text)) / 2;
+//        textY = 270 - (metrics.getHeight() / 2) + metrics.getAscent();
+//        g.drawString(text, textX, textY);
+//
+//        // Font settings for the ad text number of points
+//        g.setColor(Color.WHITE);
+//        g.setFont(new Font("Arial", Font.PLAIN, 18));
+//        text = "Number of points scored:";
+//        metrics = g.getFontMetrics();
+//        textX = (this.width - metrics.stringWidth(text)) / 2;
+//        textY = 300 - (metrics.getHeight() / 2) + metrics.getAscent();
+//        g.drawString(text, textX, textY);
+//
+//        // Font settings number of points
+//        g.setFont(new Font("Arial", Font.BOLD, 80));
+//        text = Integer.toString(score);
+//        metrics = g.getFontMetrics();
+//        textX = (this.width - metrics.stringWidth(text)) / 2;
+//        textY = 370 - (metrics.getHeight() / 2) + metrics.getAscent();
+//        g.drawString(text, textX, textY);
+//
+//        // Draw the GIF image
+//        g.drawImage(image, textX, textY + metrics.getHeight(), 100, 100, this);
+//
+//        timer.stop(); // Stop time (stop the game)
+//    }
+
+
+    public String getGameResult() {
+        return gameResult;
     }
 }
