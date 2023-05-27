@@ -7,7 +7,6 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Objects;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 /**
  * Класс игровой ЗОНЫ, наследующийся от JPanel,
@@ -203,57 +202,8 @@ class GamePanel extends JPanel implements ActionListener, KeyListener {
         textY = 440 - (metrics.getHeight() / 2) + metrics.getAscent();
         g.drawString(text, textX, textY);
 
-
-
         timer.stop(); // Остановка времени (остановка игры)
     }
-
-//    public void gameOver(Graphics2D g, String gameResult) {
-//        int textX, textY; // Coordinates of the beginning of writing text in the notification of the end of the game
-//
-//        ImageIcon imageIcon;
-//        // Color selection condition for the text, depending on the outcome of the game
-//        if (Objects.equals(gameResult, "Поражение")) {
-//            g.setColor(Color.RED); // Defeat - red
-//            imageIcon = new ImageIcon("src/GifList/loose_sad-cat.gif");
-//        } else {
-//            g.setColor(Color.GREEN); // Victory - green
-//            imageIcon = new ImageIcon("src/GifList/win_dancing-cat.gif");
-//        }
-//
-//        Image image = imageIcon.getImage();
-//
-//        // Font settings for the result text
-//        g.setFont(new Font("Arial", Font.BOLD, 24));
-//        FontMetrics metrics = g.getFontMetrics();
-//        String text = gameResult;
-//        textX = (this.width - metrics.stringWidth(text)) / 2;
-//        textY = 270 - (metrics.getHeight() / 2) + metrics.getAscent();
-//        g.drawString(text, textX, textY);
-//
-//        // Font settings for the ad text number of points
-//        g.setColor(Color.WHITE);
-//        g.setFont(new Font("Arial", Font.PLAIN, 18));
-//        text = "Number of points scored:";
-//        metrics = g.getFontMetrics();
-//        textX = (this.width - metrics.stringWidth(text)) / 2;
-//        textY = 300 - (metrics.getHeight() / 2) + metrics.getAscent();
-//        g.drawString(text, textX, textY);
-//
-//        // Font settings number of points
-//        g.setFont(new Font("Arial", Font.BOLD, 80));
-//        text = Integer.toString(score);
-//        metrics = g.getFontMetrics();
-//        textX = (this.width - metrics.stringWidth(text)) / 2;
-//        textY = 370 - (metrics.getHeight() / 2) + metrics.getAscent();
-//        g.drawString(text, textX, textY);
-//
-//        // Draw the GIF image
-//        g.drawImage(image, textX, textY + metrics.getHeight(), 100, 100, this);
-//
-//        timer.stop(); // Stop time (stop the game)
-//    }
-
 
     public String getGameResult() {
         return gameResult;

@@ -3,10 +3,6 @@ package App.ArkanoidGame.ArzimanOff;
 // Перечень импортированных библиотек
 import javax.swing.*;
 import java.awt.*;
-import java.util.Objects;
-
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 /**
  * Класс игрового ОКНА, наследующийся от JFrame
